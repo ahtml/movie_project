@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+{% load static %}
+    <section class="page-title">
+        Register in Movie Explorer!
+    </section>
+<!--Django need to end the url with '/'. Note that instead of '/register', it becomes '/register/'-->
+{%if errors%}
+    <div>
+            {% for error in errors %}
+            <td><font color="red">
+                {{ error }}
+            </font></td>
+            {% endfor %}
+    </div>
+{% elif success%}
+    <div> <p style="color:green">{{ success }} </p></div>
+{% endif %}
+
+    <section class="form-container">
+        <form method="POST" action='/register/'>
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td>
+                        <input type="email" name="email" placeholder="ex: JS@email.com">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Username:
+                    </td>
+                    <td>
+                        <input type="text" name="username" placeholder="ex: JS01">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Password:
+                    </td>
+                    <td>
+                        <input type="password" name="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Confirm Password:
+                    </td>
+                    <td>
+                        <input type="password" name="confirm_pwd">
+                    </td>
+                </tr>
+            </table><br>
+            <div class="submit-div">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

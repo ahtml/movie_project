@@ -1,0 +1,9 @@
+Django==1.10.1
+django-extensions==1.7.6
+Flask==0.12
+Flask-SocketIO==2.8.2
+Flask-WTF==0.12
+pymongo==3.4.0
+tmdbsimple==1.5.0
+selenium==3.0.2
+

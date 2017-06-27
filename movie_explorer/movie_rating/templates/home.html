@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<!--You need this load static tag to make it work-->
+{% load static %}
+    <section class="page-title">
+        Welcome to Movie Explorer!
+    </section>
+
+<!--    Search Bar  -->
+    <section class="search-section">
+        <form id="id_search" method="POST" action='/search/'>
+            {% csrf_token %}
+            <input type="text" class="search-bar" name="search">
+            <input type="submit" value="Search">
+        </form>
+        <br><br>
+
+        {% if page_type == 'search_page' %}
+        <!-----Sorting menu for search results------>
+            <div class="label-container">
+                <label for="id_search_sort_by">Sort by:</label>&nbsp;&nbsp;
+                <select id="id_search_sort_by" form="optionsForm" name="search_sort_by" onchange="this.form.submit();">
+                    <option value="popularity.desc"{% if sort_selected == 'popularity.desc' %}selected{% endif %}>Popular</option>
+                    <option value="release_date.desc"{% if sort_selected == 'release_date.desc' %}selected{% endif %}>New-Old</option>
+                    <option value="release_date.asc"{% if sort_selected == 'release_date.asc' %}selected{% endif %}>Old-New</option>
+                </select>
+            </div>
+    </section>
+        {% else %}
+        <!-----filter and sort menus for home page------>
+            <div class="label-container">
+                <label for="id_genre">Genre:</label>&nbsp;&nbsp;
+                <select id="id_genre" form="optionsForm" name="genre" onchange="document.getElementById('optionsForm').submit();">
+                    <option value=""{% if genre_selected == '' %}selected{% endif %}>All</option>
+                    <option value="28"{% if genre_selected == '28' %}selected{% endif %}>Action</option>
+                    <option value="12"{% if genre_selected == '12' %}selected{% endif %}>Adventure</option>
+                    <option value="16"{% if genre_selected == '16' %}selected{% endif %}>Animation</option>
+                    <option value="35"{% if genre_selected == '35' %}selected{% endif %}>Comedy</option>
+                    <option value="80"{% if genre_selected == '80' %}selected{% endif %}>Crime</option>
+                    <option value="99"{% if genre_selected == '90' %}selected{% endif %}>Documentary</option>
+                    <option value="18"{% if genre_selected == '18' %}selected{% endif %}>Drama</option>
+                    <option value="10751"{% if genre_selected == '10751' %}selected{% endif %}>Family</option>
+                    <option value="14"{% if genre_selected == '14' %}selected{% endif %}>Fantasy</option>
+                    <option value="36"{% if genre_selected == '36' %}selected{% endif %}>History</option>
+                    <option value="27"{% if genre_selected == '27' %}selected{% endif %}>Horror</option>
+                    <option value="10402"{% if genre_selected == '10402' %}selected{% endif %}>Music</option>
+                    <option value="9648"{% if genre_selected == '9648' %}selected{% endif %}>Mystery</option>
+                    <option value="10749"{% if genre_selected == '10749' %}selected{% endif %}>Romance</option>
+                    <option value="878"{% if genre_selected == '878' %}selected{% endif %}>Sci-Fi</option>
+                    <option value="10770"{% if genre_selected == '10770' %}selected{% endif %}>TV Movie</option>
+                    <option value="53"{% if genre_selected == '53' %}selected{% endif %}>Thriller</option>
+                    <option value="10752"{% if genre_selected == '10752' %}selected{% endif %}>War</option>
+                    <option value="37"{% if genre_selected == '37' %}selected{% endif %}>Western</option>
+                </select>
+            </div>
+            <div class="label-container">
+                <label for="id_sort_by">Sort by:</label>&nbsp;&nbsp;
+                <select id="id_sort_by" form="optionsForm" name="sort_by" onchange="this.form.submit();">
+                    <option value="popularity.desc"{% if sort_selected == 'popularity.desc' %}selected{% endif %}>Most Popular</option>
+                    <option value="release_date.desc"{% if sort_selected == 'release_date.desc' %}selected{% endif %}>Most Recent</option>
+                    <option value="release_date.asc"{% if sort_selected == 'release_date.asc' %}selected{% endif %}>Oldest Release</option>
+                </select>
+            </div>
+    </section>
+            <!-- Next and Previous Page-->
+            <form role="form" id="optionsForm" action="" method="post">
+                {% csrf_token %}
+                {% if page_num != '1' %}
+                    <button name="prev_page" type="submit" value="{{page_num}}" onclick="this.form.submit();">Previous Page</button>
+                {% endif %}
+                Current Page:&nbsp;{{page_num}}
+                {% if last_page == 'false' %}
+                    <button name="next_page" type="submit" value="{{page_num}}" onclick="this.form.submit();">Next Page</button>
+                {% endif %}
+            </form>
+        {% endif %}
+
+    <!-- Section used for displaying results-->
+        {% if status == 'failure' %}
+            <div id="movies-error">
+                OOPS...<br>
+                We could not retrieve movies from the database, please try again later...
+            </div>
+        {% elif status == 'noresult' %}
+        <section class="errors">
+            <div id="movies-error">
+                OOPS...<br>
+                No movies found
+            </div>
+        </section>
+        {% elif status == 'empty' %}
+         <section class="errors">
+            <div id="movies-error">
+                OOPS...<br>
+                Please enter a movie name in the search bar!
+            </div>
+        </section>
+        {% else %}
+            <section class="page-section">
+                {% if page_type == 'search_page' %}
+                    Search Results for: <span id="search-result">{{search}}</span><br><br>
+
+                    <!-- Next and Previous Page-->
+                    <form role="form" id="optionsForm" action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{search}}" name="search"}>
+                    </form>
+
+                {% endif %}
+            </section>
+            <section class="playing-movies">
+                {% for movie in results %}
+                    <div class="hidden-movie">
+                        <form method="GET" action="/description/{{ movie.id }}/" onclick="submit();">
+                            <img src="{{image_path}}{{movie.poster_path}}"}} onerror="this.src='{% static "img/no_image_available.png" %}';">
+                            <span class="movie-title">{{movie.title}}</span>
+                            {% csrf_token %}
+                            <input type="hidden" value={{movie.id}} name="tmdb_movie_id"}>
+                        </form>
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endblock %}

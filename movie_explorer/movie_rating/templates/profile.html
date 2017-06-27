@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+{% load static %}
+    <section class="page-title">
+        User Profile
+    </section>
+
+{%if noChange%}
+    <div> <p style="color:green">{{ noChange }} </p></div>
+{% elif success%}
+    <div> <p style="color:green">{{ success }} </p></div>
+{% endif %}
+
+<section class="profile">
+    <p>
+        Username: {{ user.username }}
+        <br><br>
+        Email: {{ user.email }}
+        <br><br>
+        <a href="{% url 'changePassword' %}">Change Password</a>
+    </p>
+</section>
+
+{% endblock %}

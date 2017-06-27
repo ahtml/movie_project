@@ -1,0 +1,44 @@
+body {
+    text-align: center;
+}
+
+section.form-container {
+    display: inline-block;
+    padding: 25px;
+    margin-top: 50px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+    background-color: rgba(33,33,33,1);
+    color: rgba(100,150,240,1);
+    text-align: left;
+    font-size: 150%;
+}
+
+section.form-container td {
+    padding: 5px 20px 20px 5px;
+}
+
+section.form-container > form > table input {
+    padding: 7px;
+    border-radius: 5px;
+}
+
+section.form-container > form > div.submit-div {
+    width: 100%;
+    text-align: center;
+}
+
+section.form-container > form > div.submit-div > input {
+    padding: 7px;
+    border: 3px solid rgba(17,17,17,1);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(240,240,240,1);
+    background-color: rgba(33,33,33,1);
+    color: rgba(100,150,240,1);
+    font-size: 100%;
+}
+
+p.error {
+    color: rgba(240,100,100,1);
+    font-size: 200%;
+}

@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}Descriptions{% endblock %}
+
+{% block content %}
+<!--You need this load static tag to make it work-->
+{% load static %}
+    <section class="page-title">
+        {{results.title}}&nbsp;({{results.release_date}}, {{results.runtime}} mins)
+    </section>
+
+
+    <!-- Section used for displaying 'More Description' results -->
+        {% if status == 'failure' %}
+         <section class="errors">
+            <div id="movies-error">
+                OOPS...<br>
+                Failed to retrieve data. Try again!
+            </div>
+        </section>
+        {% elif status == 'databaseError' %}
+        <section class="errors">
+            <div id="database-error">
+                OOPS...<br>
+                We are experiencing problems with our database. Sorry for the inconvenience.
+            </div>
+        {% else %}
+            <section class="displaying-movie-description">
+                <table id="movie-view">
+                    <tr>
+                        <td>
+                            <img src="{{image_path}}{{results.poster_path}}"}} onerror="this.src='{% static "img/no_image_available_big.png" %}';">
+                        </td>
+                        <td>
+                            <div>
+                                <table id="containerS3">
+                                    <tr>
+                                        <td >
+                                            {% if rating.rating__avg == None %}
+                                                <img src="{% static "img/empty_star.png" %}">
+                                                <p>
+                                                    <span >-/</span>
+                                                    <span id="max_star">5.0</span>
+                                                </p>
+                                            {% else %}
+                                                {% if rating.rating__avg < 3.0 %}
+                                                    <img src="{% static "img/average_bad_star.png" %}">
+                                                {% else %}
+                                                     <img src="{% static "img/average_good_star.png" %}">
+                                                {% endif %}
+                                                <p>
+                                                    <span >{{rating_formatted}}/</span>
+                                                    <span id="max_star">5.0</span>
+                                                </p>
+                                            {% endif %}
+
+                                        </td>
+                                        <td>
+                                            {% if video_link == 'No Trailer Found'%}
+                                                <img src="{% static "img/no_trailer_button.png" %}">
+                                                <p id="label_play_trailer">No Trailer Found</p>
+                                            {% else %}
+                                            <a class="youtube-pop-up" href={{video_link}} onclick="event.preventDefault();open_popup();">
+                                                <img id="play-trailer" src="{% static "img/play_trailer_button.png"%}"/>
+                                                <p id="label_play_trailer">Play Trailer</p>
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <span class="tagline">{{results.tagline}}</span><br><br><br>
+                            <span class="overview">
+                                {{results.overview}}
+                            </span><br><br>
+                            <p style="color:white;">{{results.genre}}Genres: {% for name in genre %} {{ name }} {% endfor %}</p>
+                            {% if user.is_authenticated %}
+                                <div class="stars">
+                                  <form method="POST" id="rating_stars">
+                                      {% csrf_token %}
+                                    {# onchange="this.form.submit();"#}
+                                    <input class="star star-5" id="star-5" type="radio" name="star" value="5" onchange="rate_movie()" {% if current_rating == '5' %} checked{% endif %}/>
+                                    <label class="star star-5" for="star-5"></label>
+                                    <input class="star star-4" id="star-4" type="radio" name="star" value="4" onchange="rate_movie()" {% if current_rating == '4' %} checked{% endif %}/>
+                                    <label class="star star-4" for="star-4"></label>
+                                    <input class="star star-3" id="star-3" type="radio" name="star" value="3" onchange="rate_movie()" {% if current_rating == '3' %} checked{% endif %}/>
+                                    <label class="star star-3" for="star-3"></label>
+                                    <input class="star star-2" id="star-2" type="radio" name="star" value="2" onchange="rate_movie()" {% if current_rating == '2' %} checked{% endif %}/>
+                                    <label class="star star-2" for="star-2"></label>
+                                    <input class="star star-1" id="star-1" type="radio" name="star" value="1" onchange="rate_movie()" {% if current_rating == '1' %} checked{% endif %}/>
+                                    <label class="star star-1" for="star-1"></label><input type="hidden" value={{results.id}} name="id_movie"}>
+                                  </form>
+                                </div><br><br>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <br><br>
+                 <span class="similar-subtitle"> COMMENTS</span>
+            <br><br>
+            {% if user.is_authenticated %}
+            <section class="insert-comment">
+                <form method="POST" id="create_comment">
+                    <table id="new-comment">
+                        <tr>
+                            <td>
+                                {% csrf_token %}
+                                <div>
+                                    <textarea type="text" name="comment"
+                                              placeholder="Leave a public comment here..."></textarea>
+                                </div>
+                                <br>
+                                <div>
+                                    <button type="button" onclick="add_comment();">Share</button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </section>
+            {% endif %}
+
+            <section class="view-comments" id="section-view">
+                <div id="id_view_comments">
+
+                    {% if not comments %}
+
+                    <p>No Comments Found...</p>
+
+                    {% else %}
+                    {% for comment in comments reversed %}
+                    <br>
+                        <a class = "user-img">
+                            <img src="{% static "img/avatar3.png" %}">
+                        </a>
+                        <div class="contain">
+                            <a class="author">{{comment.user}}</a>
+
+                            <div class="meta">
+                                <span>{{ comment.date }}</span>
+                            </div>
+
+                            <div class="render">
+                                {{comment.comment|linebreaks}}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                    {% endif %}
+
+                </div>
+            </section>
+
+
+            <section class="similar-movies">
+                {% if similar != None %}
+                <div class="prev" onclick="prev();">
+                    <
+                </div>
+                <div class="next" onclick="next();">
+                    >
+                </div>
+                <span class="similar-subtitle"> SIMILAR MOVIES</span>
+                <br><br><br><br>
+                <div id="similar-movies-container">
+                    <input type="hidden" id="translate-value" value="0">
+                    {% for movie in similar %}
+                    <div id="movie-post">
+                        <span style="cursor:pointer">
+                        <form method="GET" action="/description/{{ movie.id }}/" onclick="submit();">
+                            <img src="{{image_path}}{{movie.poster_path}}"}} onerror="this.src='{% static "img/no_image_available.png" %}';"><br>
+                            <span >{{movie.title}}</span>
+                            {% csrf_token %}
+                            <input type="hidden" value={{movie.id}} name="id_movie"}>
+                        </form>
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <span class="similar-subtitle"> NO SIMILAR MOVIES FOUND</span>
+                {% endif %}
+            </section>
+
+
+    {% endif %}
+{% endblock %}

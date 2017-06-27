@@ -1,0 +1,326 @@
+@keyframes nextMovies {
+    0% {transform: translateX(0px);}
+    100% {transform: translateX(100px);}
+}
+
+table#movie-view {
+    width: 95%;
+    margin: auto;
+}
+
+table#movie-view td {
+    padding: 55px;
+    color: rgba(255,255,255,1);
+    font-size: 20px;
+    text-align: center;
+    vertical-align: top;
+}
+
+table#movie-view td > img {
+    width:370px;
+    height:650px;
+    display: inline-block;
+}
+
+table#movie-view td > span.tagline {
+    font-size: 50px;
+    font-style: italic;
+}
+
+table#movie-view td > span.overview {
+    font-size: 30px;
+}
+
+section.displaying-movie-description {
+    background-color: rgba(33,33,33,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+}
+
+table#movie-view td > div > table#containerS3 td > a > img#play-trailer{
+    height:80px;
+}
+
+table#movie-view td > div > table#containerS3 td > img{
+    width:4em;
+    height:4em;
+}
+
+table#movie-view td > div > table#containerS3{
+    width: 470px;
+    display: inline-block;
+}
+
+table#movie-view td > div> table#containerS3 td> a > p#label_play_trailer{
+    font-size: 22px;
+    font-style: italic;
+    color: rgba(140, 127, 114,1);
+}
+
+table#movie-view td > div> table#containerS3 td> p > span#average_rate{
+    font-size: 25px;
+    font-weight: bold;
+    color: rgba(140, 127, 114,1);
+}
+
+table#movie-view td > div> table#containerS3 td> p > span#max_star{
+    font-size: 18px;
+    color: rgba(140, 127, 114,1);
+}
+
+
+section.similar-movies > div.slider-container > form > img{
+    overflow:auto;
+    white-space:nowrap;
+}
+
+/* Display Similar Movie*/
+
+section.similar-movies {
+    position: relative;
+    width: 100%;
+    padding-top: 25px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 25px;
+    box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+    background-color: rgba(33,33,33,0.85);
+    color: rgba(233,233,233,1);
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+div#movie-post {
+    display: inline-block;
+    width: 200px;
+    margin-right: 40px;
+    text-align: center;
+    overflow: auto;
+    text-overflow: ellipsis;
+    background-color: rgba(14,14,14,1);
+}
+
+div#movie-post img {
+    width: 200px;
+    height: 300px;
+}
+
+div#movie-post > span {
+    font-weight: bold;
+}
+
+span.similar-subtitle {
+    color: rgba(100,150,240,0.8);
+    font-size: 200%;
+    font-weight: bold;
+}
+
+div#similar-movies-container {
+    transition: .6s;
+}
+
+div.next {
+    position: absolute;
+    top:0;
+    right: 0;
+    width: 75px;
+    height: 100%;
+    padding-left: 15px;
+    background-color: rgba(33,33,33,1);
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 409px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+div.prev {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 75px;
+    height: 100%;
+    padding-right: 15px;
+    background-color: rgba(33,33,33,1);
+    text-align: right;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 409px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+div.prev:hover, div.next:hover {
+    box-shadow: 0px 0px 30px 0px rgba(240,240,240,1);
+}
+
+/*CSS for the Pop up*/
+section.displaying-movie-description > .page {
+    position: relative;
+    height:100%;
+}
+
+section.displaying-movie-description > .popup {
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+}
+
+section.displaying-movie-description > .show-popup .popup {
+    opacity:1;
+    visibility: visible;
+}
+
+section.displaying-movie-description > .popup > iframe {
+    position:absolute;
+    top:50px;
+    left:50%;
+    margin-left:-280px;
+}
+
+.page {
+    position: relative;
+    height:100%;
+}
+
+.popup {
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s ease;
+}
+
+.show-popup .popup {
+    opacity:1;
+    visibility: visible;
+}
+
+.popup > iframe {
+    position:absolute;
+    top:50px;
+    left:50%;
+    margin-left:-280px;
+}
+
+table#new-comment{
+    margin: auto;
+}
+
+/* Comment Box*/
+table#new-comment td > div > textarea{
+    font-size: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0,100,255,1);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(17,17,17,1);
+    border-radius: 4px;
+    resize: none;
+    width: 600px;
+    height:140px;
+    color: rgba(81, 81, 81, 1);
+}
+
+table#new-comment td > div > button {
+    background-color: rgba(33,33,33,0.7);
+    box-shadow: 0px 0px 10px 0px rgba(0,100,255,0.8);
+    border: 2px solid rgba(17,17,17,1);
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 12px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font: 18px bold system-ui;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+section.view-comments{
+    padding-left: 550px;
+    padding-right: 550px;
+    float: left;
+    height: 340px;
+    overflow-y:scroll;
+
+}
+
+section.view-comments > div#id_view_comments  {
+    position: relative;
+    background: 0 0;
+    margin: .5em 0 0;
+    padding: .5em 0 0;
+    border: none;
+    border-top: none;
+    line-height: 1.2;
+
+}
+
+
+section.view-comments > div#id_view_comments > p {
+    font-size: 1.5em;
+    color: rgba(255,255, 255,0.8);
+    font-weight: bold;
+}
+
+
+section.view-comments > div#id_view_comments > a.user-img> img {
+    display: block;
+    width: 2.5em;
+    height: auto;
+    float: left;
+    margin: .2em 0 0;
+}
+
+
+/* author, date and comment container*/
+section.view-comments > div#id_view_comments > div.contain {
+    display: block;
+    margin-left: 3.5em;
+}
+
+
+/* author */
+section.view-comments > div#id_view_comments > div.contain > a.author {
+    font-size: 1.4em;
+    color: rgba(100,150,240,0.5);
+    font-weight: bold;
+}
+
+
+/* date container*/
+section.view-comments > div#id_view_comments > div.contain > div.meta{
+    display: inline-block;
+    margin-left: 1em;
+    color: rgba(255,255,255,.4);
+    font-size: .875em;
+}
+
+
+/* date */
+section.view-comments > div#id_view_comments > div.contain > div.meta > span{
+    display: inline-block;
+    margin: 0 .5em 0 0;
+}
+
+
+/* message */
+section.view-comments > div#id_view_comments > div.contain > div.render{
+    margin: .25em 0 .5em;
+    font-size: 1em;
+    word-wrap: break-word;
+    color: rgba(235, 245, 242, 0.8);
+    line-height: 1.3;
+}
+

@@ -1,0 +1,20 @@
+.profile p {
+    font-size: 24px;
+    color: rgba(255,255,255,1);
+}
+
+.profile a {
+    font-size: 24px;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgb(221, 221, 221);
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}

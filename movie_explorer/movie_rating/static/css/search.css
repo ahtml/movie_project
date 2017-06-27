@@ -1,0 +1,191 @@
+@keyframes appear {
+    0% {transform: rotateY(-90Deg);}
+    100% {transform: rotateY(0Deg);}
+}
+
+html, body {
+    height: 100%;
+}
+
+section.search-section {
+    width: 100%;
+    padding-bottom: 75px;
+    text-align: center;
+}
+
+section.search-section label {
+    color: rgba(192,192,192,1);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+section.search-section select {
+    padding: 7px;
+    background-color: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,1);
+    line-height: 30px;
+    font-size: 20px;
+}
+
+section.search-section select > option {
+    background-color: rgba(33,33,33,1);
+    color: rgba(255,255,255,1);
+    font-size: 20px;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+div.label-container {
+    display: inline-block;
+    width: 300px;
+}
+
+section.search-section > form > input.search-bar {
+    display: inline-block;
+    width: 50%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,100,255,1);
+    font-size: 125%;
+}
+
+section.search-section > form > input {
+    padding: 7px;
+    margin-left: 10px;
+    border: 3px solid rgba(17,17,17,1);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(240,240,240,1);
+    background-color: rgba(33,33,33,1);
+    color: rgba(100,150,240,1);
+    font-size: 100%;
+}
+
+#background-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(60Deg, rgba(44,44,44,1), rgba(33,33,33,1), rgba(17,17,17,1), rgba(33,33,33,1), rgba(44,44,44,1));
+    z-index: -10000;
+}
+
+section.playing-movies {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    color: white;
+}
+
+section.errors {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    color: white;
+}
+
+div.hidden-movie {
+    transform: rotateY(-90Deg);
+}
+
+div.shown-movie {
+    animation: appear .3s ease-in-out 1;
+}
+
+section.playing-movies > div {
+    display: inline-block;
+    width: 185px;
+    height: 338px;
+    float: left;
+    margin: 50px;
+    box-shadow: 0px 0px 20px 5px rgba(240,240,240,1);
+    color: white;
+    background-color: rgba(0,0,0,1);
+    font-size: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+section.playing-movies > div > img {
+    width: 185px;
+    height: 278px;
+}
+
+form#optionsForm {
+    diplay: block;
+    width: 100%;
+    color: rgba(255,255,255,1);
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+}
+
+form#optionsForm button {
+    padding: 7px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: rgba(100,100,100,1);
+    border-radius: 7px;
+    background-color: rgba(255,255,255,0);
+    color: rgba(100,150,240,0.7);
+    font-size: 15px;
+    font-style: italic;
+    cursor: pointer;
+}
+
+section.page-section {
+    width: 100%;
+    color: rgba(255,255,255,1);
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+
+section.page-section span#search-result {
+    font-size: 30px;
+    font-style: italic;
+}
+
+
+section.movie-ratings {
+    width: 100%;
+    color: rgba(255,255,255,1);
+    font-size: 20px;
+    text-align: center;
+}
+
+div.movie-rating {
+    display: inline-block;
+    width: 33%;
+    min-width: 400px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+div.movie-rating > table {
+    display: inline-block;
+    width: 300px;
+    box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+    background-color: rgba(33,33,33,1);
+}
+
+div.movie-rating > table td {
+    padding: 7px;
+    vertical-align: top;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+div.movie-rating > table td > img {
+    display: inline-block;
+}
+
+div.rating-title {
+    width: 216px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
